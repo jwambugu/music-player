@@ -37,11 +37,24 @@ const Player = ({ currentSong, isPlaying, setIsPlaying }) => {
         return `${minutes}:${secondsWithZero}`;
     };
 
+    const dragHandler = (e) => {
+        const { value } = e.target;
+
+        audioRef.current.currentTime = value;
+        setSongInfo({ ...songInfo, currentTime: value });
+    };
+
     return (
         <div className="player">
             <div className="time-control">
                 <p>{getTime(songInfo.currentTime)}</p>
-                <input type="range" />
+                <input
+                    type="range"
+                    value={songInfo.currentTime}
+                    min={0}
+                    max={songInfo.duration}
+                    onChange={dragHandler}
+                />
                 <p>{getTime(songInfo.duration)}</p>
             </div>
 
