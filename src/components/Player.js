@@ -25,6 +25,9 @@ const Player = ({
         animationPercentage: 0,
     });
 
+    const SKIP_FORWARD_DIRECTION = 1;
+    const SKIP_BACKWARD_DIRECTION = -1;
+
     // Event handlers
     const playSongHandler = () => {
         !isPlaying ? audioRef.current.play() : audioRef.current.pause();
@@ -109,7 +112,7 @@ const Player = ({
 
             <div className="play-control">
                 <FontAwesomeIcon
-                    onClick={() => skipSongHandler(-1)}
+                    onClick={() => skipSongHandler(SKIP_BACKWARD_DIRECTION)}
                     className="skip-back"
                     icon={faAngleLeft}
                     size="2x"
@@ -123,7 +126,7 @@ const Player = ({
                 />
 
                 <FontAwesomeIcon
-                    onClick={() => skipSongHandler(1)}
+                    onClick={() => skipSongHandler(SKIP_FORWARD_DIRECTION)}
                     className="skip-forward"
                     icon={faAngleRight}
                     size="2x"
@@ -134,6 +137,7 @@ const Player = ({
                 onTimeUpdate={timeUpdateHandler}
                 onLoadedMetadata={timeUpdateHandler}
                 onLoadedData={autoPlayHandler}
+                onEnded={() => skipSongHandler(SKIP_FORWARD_DIRECTION)}
                 ref={audioRef}
                 src={currentSong.audio}
             ></audio>
