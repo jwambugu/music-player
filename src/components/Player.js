@@ -22,6 +22,7 @@ const Player = ({
     const [songInfo, setSongInfo] = useState({
         currentTime: 0,
         duration: 0,
+        animationPercentage: 0,
     });
 
     // Event handlers
@@ -32,10 +33,15 @@ const Player = ({
     };
 
     const timeUpdateHandler = (e) => {
-        let { currentTime, duration } = e.target;
-        duration = duration || 0;
+        const { currentTime, duration } = e.target;
+        const animationPercentage = Math.round((currentTime / duration) * 100);
 
-        setSongInfo({ ...songInfo, currentTime, duration });
+        setSongInfo({
+            ...songInfo,
+            currentTime,
+            duration: duration || 0,
+            animationPercentage,
+        });
     };
 
     const getTime = (time) => {
@@ -69,19 +75,35 @@ const Player = ({
             songs[songs.length - 1];
 
         setCurrentSong(songToPlay);
+        setSongInfo({ ...songInfo, animationPercentage: 0 });
+    };
+
+    const trackAnimation = {
+        transform: `translateX(${songInfo.animationPercentage}%)`,
     };
 
     return (
         <div className="player">
             <div className="time-control">
                 <p>{getTime(songInfo.currentTime)}</p>
-                <input
-                    type="range"
-                    value={songInfo.currentTime}
-                    min={0}
-                    max={songInfo.duration}
-                    onChange={dragHandler}
-                />
+
+                <div
+                    className="track"
+                    style={{
+                        background: `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`,
+                    }}
+                >
+                    <input
+                        type="range"
+                        value={songInfo.currentTime}
+                        min={0}
+                        max={songInfo.duration}
+                        onChange={dragHandler}
+                    />
+
+                    <div style={trackAnimation} className="animate-track"></div>
+                </div>
+
                 <p>{getTime(songInfo.duration)}</p>
             </div>
 

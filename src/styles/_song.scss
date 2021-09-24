@@ -18,3 +18,16 @@
         font-size: 1rem;
     }
 }
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate-cover {
+    animation: rotate 20s linear forwards infinite;
+}
