@@ -19,12 +19,14 @@ function App() {
     return (
         <div className="App">
             <Song currentSong={currentSong} />
-            <Player
-                currentSong={currentSong}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
-            />
-            <Library songs={songs} />
+            {currentSong && (
+                <Player
+                    currentSong={currentSong}
+                    isPlaying={isPlaying}
+                    setIsPlaying={setIsPlaying}
+                />
+            )}
+            <Library songs={songs} setCurrentSong={setCurrentSong} />
         </div>
     );
 }
