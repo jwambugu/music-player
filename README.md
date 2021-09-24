@@ -2,6 +2,10 @@
 
 This is a music player built using react.js as part of introduction to react.
 
+## Deployed App
+
+A preview of the final application can be found here [https://music-player-smoky.vercel.app/](https://music-player-smoky.vercel.app/)
+
 ## Run Locally
 
 Clone the project
