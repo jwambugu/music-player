@@ -5,7 +5,10 @@ function Nav({ libraryStatus, setLibraryStatus }) {
     return (
         <nav>
             <h1>Waves</h1>
-            <button onClick={() => setLibraryStatus(!libraryStatus)}>
+            <button
+                onClick={() => setLibraryStatus(!libraryStatus)}
+                className={libraryStatus ? "library-active" : ""}
+            >
                 Library
                 <FontAwesomeIcon icon={faMusic} />
             </button>
